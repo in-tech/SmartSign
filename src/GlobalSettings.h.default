@@ -1,0 +1,29 @@
+#pragma once
+#include <Esp32Foundation.h>
+using namespace esp32::foundation;
+
+#define ADMIN_CARD_ID "AAAAAAAA"
+
+struct GlobalSettings
+{
+    StringParameter HostName = StringParameter("hostname", "SmartSign");
+    StringParameter WifiSSID = StringParameter("wifi_ssid", "");
+    StringParameter WifiKey = StringParameter("wifi_key", "");
+    StringParameter UserCardId = StringParameter("user_card", "BBBBBBBB");
+
+    StringParameter BusinessDays = StringParameter("business_days", "mo tu we th fr");
+    IntegerParameter BusinessDayBeginHour = IntegerParameter("business_day_begin_hour", 5, 0, 24);
+    IntegerParameter BusinessDayEndHour = IntegerParameter("business_day_end_hour", 20, 0, 24);
+    IntegerParameter BusinessTimeUpdateInterval = IntegerParameter("business_time_update_interval", 5, 1, 55);
+    IntegerParameter FreeTimeUpdateInterval = IntegerParameter("free_time_update_interval", 55, 1, 55);
+
+    // event registration codes for the Corona-Warn-App
+    BooleanParameter CwaEventQRCodes = BooleanParameter("cwa_event_qrcodes", false);
+
+    // Azure AD App registration: https://docs.microsoft.com/en-us/graph/tutorials/dotnet-core?view=graph-rest-beta&tutorial-step=2
+    // Also see docs/example_azure_ad_manifest.json for correct registration settings.
+    StringParameter AzureClientId = StringParameter("azure_client_id", "cccccccc-cccc-cccc-cccc-cccccccccccc"); // Application (client) ID
+    StringParameter AzureTenantId = StringParameter("azure_tenant_id", "dddddddd-dddd-dddd-dddd-dddddddddddd"); // Directory (tenant) ID
+    StringParameter Schedule = StringParameter("schedule", "conference.room2@company.com");
+    StringParameter DisplayName = StringParameter("display_name", "Conference Room 2");
+};
