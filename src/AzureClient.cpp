@@ -7,10 +7,10 @@
 #define NUM_RETRIES 1
 #define MAX_ACCESS_TOKEN_AGE (SECS_PER_MIN * 50)
 
-RTC_DATA_ATTR AzureToken<1050> rtc_refreshToken = {};
+RTC_DATA_ATTR AzureToken<1080> rtc_refreshToken = {};
 
 RTC_DATA_ATTR time_t rtc_accessTokenTimeStamp = 0;
-RTC_DATA_ATTR AzureToken<2200> rtc_accessToken = {};
+RTC_DATA_ATTR AzureToken<2210> rtc_accessToken = {};
 
 void ClearAccessToken()
 {
