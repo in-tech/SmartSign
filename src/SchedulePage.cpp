@@ -1,6 +1,5 @@
 #include "SchedulePage.h"
 #include "AppContext.h"
-#include <ArduinoJson.h>
 
 //#define USE_MOCK_DATA
 //#define SHOW_FONT_TEST_SCREEN
@@ -62,10 +61,11 @@ void SchedulePage::Update(const InputState& inputState)
     {
         _scheduleRequested = true;
 
-        auto result = _ctx.GetAzureClient().GetSchedule();
+        DynamicJsonDocument json(16 * 1024);
+        auto result = _ctx.GetAzureClient().GetSchedule(json);
         if (result.Success)
         {
-            PresentSchedule(result.JsonContent);
+            PresentSchedule(json);
         }
         else
         {
@@ -84,7 +84,7 @@ void SchedulePage::Update(const InputState& inputState)
     }
 }
 
-void SchedulePage::PresentSchedule(const String& jsonContent)
+void SchedulePage::PresentSchedule(DynamicJsonDocument& json)
 {    
     _maxUtcWakeTime = 0;
 
@@ -128,13 +128,6 @@ void SchedulePage::PresentSchedule(const String& jsonContent)
         items.push_back(item);
     }
 #else
-    DynamicJsonDocument json(16 * 1024);
-    if (deserializeJson(json, jsonContent) != DeserializationError::Ok)
-    {
-        _ctx.GetDisplay().ShowErrorScreen("Failed to parse schedule data!", "", "");
-        return;
-    }
-
     std::vector<ScheduleItem> items;
 
     if (json.containsKey("value") && json["value"].is<JsonArray>())

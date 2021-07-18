@@ -32,7 +32,6 @@ struct GetScheduleResponse
 {
     bool Success;
     String Error;
-    String JsonContent;
 };
 
 enum AuthorizationProgress
@@ -57,7 +56,7 @@ public:
     AuthorizationRequestInfo BeginAuthorization();
     void CancelAuthorization(const String& reason);
 
-    GetScheduleResponse GetSchedule();
+    GetScheduleResponse GetSchedule(DynamicJsonDocument& json);
 
 private:
     Response LoginRequest(const String& endpoint, const std::map<String, String>& bodyData);

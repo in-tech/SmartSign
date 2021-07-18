@@ -1,6 +1,7 @@
 #pragma once
 #include "NavPage.h"
 #include <TimeUtils.h>
+#include <ArduinoJson.h>
 #include <vector>
 
 struct ScheduleItem
@@ -17,7 +18,7 @@ public:
     ~SchedulePage();
 
     virtual void Update(const InputState& inputState) override;
-    void PresentSchedule(const String& jsonContent);
+    void PresentSchedule(DynamicJsonDocument& json);
 
 private:
     bool _scheduleRequested;

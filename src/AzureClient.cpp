@@ -216,7 +216,7 @@ Response AzureClient::LoginRequest(const String &endpoint, const std::map<String
     return Response(HTTP_CODE_SERVICE_UNAVAILABLE, "not connected");
 }
 
-GetScheduleResponse AzureClient::GetSchedule()
+GetScheduleResponse AzureClient::GetSchedule(DynamicJsonDocument& json)
 {
     GetScheduleResponse result = {};
 
@@ -239,6 +239,12 @@ GetScheduleResponse AzureClient::GetSchedule()
 
     for (int i = 0; i <= NUM_RETRIES; i++)
     {
+        if (i > 0)
+        {
+            Log::Warning(result.Error + " -> retry ...");
+        }
+
+        json.clear();
         result.Error = "";
 
         // use refersh token to get new access token
@@ -309,19 +315,22 @@ GetScheduleResponse AzureClient::GetSchedule()
 
             auto response = ScheduleRequest(accessToken, body);
 
-            if (response.HttpCode == HTTP_CODE_OK)
-            {
-                result.Success = true;
-                result.JsonContent = response.Content;
-                break;
-            }
-            else
+            if (response.HttpCode != HTTP_CODE_OK)
             {
                 ClearAccessToken();
                 accessToken = "";
                 result.Error = GetErrorMessage(response);
-                Log::Warning(result.Error + " -> retry ...");
                 continue;
+            }
+            else
+            {
+                if (deserializeJson(json, response.Content) != DeserializationError::Ok)
+                {
+                    result.Error = "Failed to parse schedule data!";
+                    continue;
+                }
+                result.Success = true;
+                return result;
             }
         }
     }
