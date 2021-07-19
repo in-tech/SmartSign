@@ -1,4 +1,5 @@
 #pragma once
+#include "Version.h"
 #include "SettingsManager.h"
 #include "NetworkManager.h"
 #include "AzureClient.h"

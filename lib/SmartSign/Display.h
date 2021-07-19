@@ -26,6 +26,7 @@ public:
     void DeInit();
 
 private:
+    void RenderFirmwareVersion();
     void RenderQRCode(const String& message, const int x, const int y, const int size, const int version = 3);
     void RenderCwaEventQRCode(const ScheduleItem& item);
     void RenderButtonInfos(const String& btnInfoA, const String& btnInfoB, const int color);

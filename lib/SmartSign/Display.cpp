@@ -222,6 +222,8 @@ void Display::ShowAdminMenuScreen(const String& btnInfoA, const String& btnInfoB
         }
 
         RenderButtonInfos(btnInfoA, btnInfoB, BLACK);
+
+        RenderFirmwareVersion();
         
         Present(true);
     }
@@ -334,6 +336,11 @@ void Display::ShowFontTestScreen()
     drawText(EPD_HEIGHT / 2, EPD_HEIGHT / 2, BLACK, WHITE);
     
     Present(false);
+}
+
+void Display::RenderFirmwareVersion()
+{
+    _paint.DrawUtf8StringAt(EPD_WIDTH - 10, EPD_HEIGHT - 20, SMART_SIGN_FW_VERSION, &Font16, BLACK, TextAlignment::RIGHT);
 }
 
 void Display::RenderQRCode(const String& message, const int x, const int y, const int size, const int version)
