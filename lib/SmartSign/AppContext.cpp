@@ -17,16 +17,19 @@ AppContext::~AppContext()
 
 uint8_t AppContext::GetPermissions(const String& cardId)
 {
-    if (!cardId.isEmpty())
+    if (cardId.length() > 7)
     {
-        if (cardId.equalsIgnoreCase(ADMIN_CARD_ID))
+        if (!cardId.isEmpty())
         {
-            return PERM_ADMINISTRATION;
-        }
+            if (String(ADMIN_CARD_ID).indexOf(cardId) > -1)
+            {
+                return PERM_ADMINISTRATION;
+            }
 
-        if (cardId.equalsIgnoreCase(Settings().UserCardId))
-        {
-            return PERM_AUTHORIZATION;
+            if (Settings().UserCardId.ToString().indexOf(cardId) > -1)
+            {
+                return PERM_AUTHORIZATION;
+            }
         }
     }
 

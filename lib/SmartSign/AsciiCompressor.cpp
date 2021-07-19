@@ -1,9 +1,14 @@
 #include "AsciiCompressor.h"
 
+uint16_t AsciiCompressor::GetCompressedSize(const String& asciiStr)
+{
+    return (uint16_t)ceil(float(asciiStr.length()) * 7 / 8) + 1;
+}
+
 uint16_t AsciiCompressor::Compress(const String& asciiStr, uint8_t* dst, const uint16_t dstSize)
 {
     memset(dst, 0, dstSize);
-    uint16_t compressedSize = (uint16_t)ceil(float(asciiStr.length()) * 7 / 8) + 1;
+    uint16_t compressedSize = GetCompressedSize(asciiStr);
     if (dstSize < compressedSize)
     {
         return 0;
