@@ -3,7 +3,7 @@
 #include "Log.h"
 #include "AsciiCompressor.h"
 
-template<int SIZE>
+template<uint16_t SIZE>
 struct AzureToken
 {
     bool Valid;
@@ -23,7 +23,8 @@ struct AzureToken
         if (AsciiCompressor::Compress(token, CompressedToken, SIZE) == 0)
         {
             Valid = false;
-            Log::Error(F("buffer too small for compressed token"));
+            const auto compressed_size = AsciiCompressor::GetCompressedSize(token);
+            Log::Error(String("rtc-buffer too small for compressed token (") + compressed_size + " vs " + SIZE + ")");
             return false;
         }
         Valid = true;
