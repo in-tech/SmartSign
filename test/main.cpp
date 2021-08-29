@@ -24,6 +24,8 @@ void setup()
 
     RUN_TEST(display_tests::test_info_message);
     RUN_TEST(display_tests::test_font_rendering);
+    RUN_TEST(display_tests::test_booked_schedule_screen);
+    RUN_TEST(display_tests::test_free_schedule_screen);
 
     UNITY_END();
 }

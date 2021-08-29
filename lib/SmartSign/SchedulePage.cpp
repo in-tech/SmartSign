@@ -1,13 +1,6 @@
 #include "SchedulePage.h"
 #include "IAppContext.h"
 
-//#define USE_MOCK_DATA
-//#define SHOW_FONT_TEST_SCREEN
-
-#ifdef USE_MOCK_DATA
-RTC_DATA_ATTR int rtc_mock_minute = 0;
-#endif
-
 SchedulePage::SchedulePage(IAppContext& ctx) :
     NavPage(ctx),
     _scheduleRequested(false),
@@ -21,16 +14,6 @@ SchedulePage::~SchedulePage()
 
 void SchedulePage::Update(const InputState& inputState)
 {
-#ifdef SHOW_FONT_TEST_SCREEN
-    _ctx.GetDisplay().ShowFontTestScreen();
-    _ctx.GetPowerMgr().EnterDeepSleep();
-    return;
-#endif
-
-#ifdef USE_MOCK_DATA
-    PresentSchedule("");
-#else
-
     if (!_ctx.GetNetworkMgr().WifiIsConfigured())
     {
         _ctx.GetDisplay().ShowErrorScreen("WiFi not configured!", "", "");
@@ -72,7 +55,6 @@ void SchedulePage::Update(const InputState& inputState)
             _ctx.GetDisplay().ShowErrorScreen(result.Error, "", "");
         }
     }
-#endif
 
     if (!_ctx.GetDisplay().IsBusy())
     {
@@ -88,46 +70,6 @@ void SchedulePage::PresentSchedule(DynamicJsonDocument& json)
 {    
     _maxUtcWakeTime = 0;
 
-#ifdef USE_MOCK_DATA
-    time_t utcNow = TimeUtils::UtcIsoStringToTime("2021-04-01T09:52:00");
-    utcNow += SECS_PER_MIN * rtc_mock_minute;
-    rtc_mock_minute += 2;
-    time_t localNow = utcNow;
-
-    //Log::Info(TimeUtils::ToShortTimeString(localNow));
-    std::vector<ScheduleItem> items;
-    {
-        ScheduleItem item = {};
-        item.Subject = "Heinz, Karl";
-        item.LocalStartTime = TimeUtils::UtcIsoStringToTime("2021-04-01T06:30:00");
-        item.LocalEndTime = TimeUtils::UtcIsoStringToTime("2021-04-01T06:35:00");
-        items.push_back(item);
-    }
-
-    {
-        ScheduleItem item = {};
-        item.Subject = "Wurst, Hans";
-        item.LocalStartTime = TimeUtils::UtcIsoStringToTime("2021-04-01T07:30:00");
-        item.LocalEndTime = TimeUtils::UtcIsoStringToTime("2021-04-01T10:00:00");
-        items.push_back(item);
-    }
-
-    {
-        ScheduleItem item = {};
-        item.Subject = "Mustermann, Max 0123456789ABCDEF";
-        item.LocalStartTime = TimeUtils::UtcIsoStringToTime("2021-04-01T10:00:00");
-        item.LocalEndTime = TimeUtils::UtcIsoStringToTime("2021-04-01T14:30:00");
-        items.push_back(item);
-    }
-
-    {
-        ScheduleItem item = {};
-        item.Subject = "Roßbach, Marc";
-        item.LocalStartTime = TimeUtils::UtcIsoStringToTime("2021-04-01T15:00:00");
-        item.LocalEndTime = TimeUtils::UtcIsoStringToTime("2021-04-01T16:00:00");
-        items.push_back(item);
-    }
-#else
     std::vector<ScheduleItem> items;
 
     if (json.containsKey("value") && json["value"].is<JsonArray>())
@@ -191,8 +133,6 @@ void SchedulePage::PresentSchedule(DynamicJsonDocument& json)
         }
         _maxUtcWakeTime = TimeUtils::ToUtcTime(maxLocalWakeTime);
     }
-
-#endif
 
     _ctx.GetPowerMgr().SetStatusLED(false);
     for (auto& item : items)

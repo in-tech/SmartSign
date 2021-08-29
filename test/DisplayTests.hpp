@@ -76,4 +76,75 @@ namespace display_tests
         bool success = wait_for_button_press(ctx, true, false, 10);
         TEST_ASSERT_TRUE(success);
     }
+
+    void test_booked_schedule_screen()
+    {
+        AppContextDisplayMock ctx;
+        ctx.Init();
+
+        time_t utcNow = TimeUtils::UtcIsoStringToTime("2021-04-01T09:52:00");
+        time_t localNow = utcNow;
+        std::vector<ScheduleItem> items;
+        {
+            ScheduleItem item = {};
+            item.Subject = "Heinz, Karl";
+            item.LocalStartTime = TimeUtils::UtcIsoStringToTime("2021-04-01T06:30:00");
+            item.LocalEndTime = TimeUtils::UtcIsoStringToTime("2021-04-01T06:35:00");
+            items.push_back(item);
+        }
+
+        {
+            ScheduleItem item = {};
+            item.Subject = "Wurst, Hans";
+            item.LocalStartTime = TimeUtils::UtcIsoStringToTime("2021-04-01T07:30:00");
+            item.LocalEndTime = TimeUtils::UtcIsoStringToTime("2021-04-01T10:00:00");
+            items.push_back(item);
+        }
+
+        {
+            ScheduleItem item = {};
+            item.Subject = "Mustermann, Max 0123456789ABCDEF";
+            item.LocalStartTime = TimeUtils::UtcIsoStringToTime("2021-04-01T10:00:00");
+            item.LocalEndTime = TimeUtils::UtcIsoStringToTime("2021-04-01T14:30:00");
+            items.push_back(item);
+        }
+
+        {
+            ScheduleItem item = {};
+            item.Subject = "Roßbach, Marc";
+            item.LocalStartTime = TimeUtils::UtcIsoStringToTime("2021-04-01T15:00:00");
+            item.LocalEndTime = TimeUtils::UtcIsoStringToTime("2021-04-01T16:00:00");
+            items.push_back(item);
+        }
+
+        ctx.GetDisplay().ShowScheduleScreen(localNow, items);
+
+        Serial.println("Please press button A if BOOKED schedule looks all right on the display.");
+        bool success = wait_for_button_press(ctx, true, false, 10);
+        TEST_ASSERT_TRUE(success);
+    }
+
+    void test_free_schedule_screen()
+    {
+        AppContextDisplayMock ctx;
+        ctx.Init();
+
+        time_t utcNow = TimeUtils::UtcIsoStringToTime("2021-04-01T09:52:00");
+        time_t localNow = utcNow;
+        std::vector<ScheduleItem> items;
+
+        {
+            ScheduleItem item = {};
+            item.Subject = "Mustermann, Max 0123456789ABCDEF";
+            item.LocalStartTime = TimeUtils::UtcIsoStringToTime("2021-04-01T10:00:00");
+            item.LocalEndTime = TimeUtils::UtcIsoStringToTime("2021-04-01T14:30:00");
+            items.push_back(item);
+        }
+
+        ctx.GetDisplay().ShowScheduleScreen(localNow, items);
+
+        Serial.println("Please press button A if FREE schedule looks all right on the display.");
+        bool success = wait_for_button_press(ctx, true, false, 10);
+        TEST_ASSERT_TRUE(success);
+    }
 }
