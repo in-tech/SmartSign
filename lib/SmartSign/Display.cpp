@@ -431,7 +431,7 @@ void Display::Present(const bool fastMode)
 
     if (fastMode)
     {
-        delay(3000);
+        delay(4000);
         _epd.Init();
     }
 }
