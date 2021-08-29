@@ -343,7 +343,7 @@ void Display::ShowFontTestScreen()
     };
 
     drawText(0, EPD_HEIGHT / 2, WHITE, BLACK);
-    drawText(EPD_HEIGHT / 2, EPD_HEIGHT / 2, BLACK, WHITE);
+    drawText(EPD_HEIGHT / 2, EPD_HEIGHT / 2, RED, WHITE);
     
     Present(false);
 }
