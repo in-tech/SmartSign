@@ -2,7 +2,7 @@
 #include <Arduino.h>
 #include "InputManager.h"
 
-class AppContext;
+class IAppContext;
 
 enum NavPages
 {
@@ -17,7 +17,7 @@ enum NavPages
 class NavPage
 {
 public:
-    NavPage(AppContext& ctx);
+    NavPage(IAppContext& ctx);
     virtual ~NavPage();
 
     virtual void Update(const InputState& inputState) = 0;
@@ -26,5 +26,5 @@ public:
     virtual void GoTo(const NavPages page);
 
 protected:
-    AppContext& _ctx;
+    IAppContext& _ctx;
 };

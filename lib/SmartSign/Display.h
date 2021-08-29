@@ -2,28 +2,28 @@
 #include <vector>
 #include "Epd.h"
 #include <epdpaint.h>
-#include "AzureClient.h"
-#include "SchedulePage.h"
+#include "IDisplay.h"
 
-class AppContext;
+class IAppContext;
 
-class Display
+class Display : public IDisplay
 {
 public:
-    Display(AppContext& ctx);
-    ~Display();
+    Display(IAppContext& ctx);
+    virtual ~Display() override;
 
     void Init();
-    void ShowScheduleScreen(const time_t localNow, const std::vector<ScheduleItem>& items);
-    void ShowAdminMenuScreen(const String& btnInfoA, const String& btnInfoB);
-    void ShowSettingsScreen(const String& wifiSsid, const String& wifiKey, const String& btnInfoA, const String& btnInfoB);
-    void ShowAuthorizationScreen(const String& message, const String& uri, const String& code, const String& btnInfoA, const String& btnInfoB);
-    void ShowUnknownCardScreen(const String& header, const String& code, const String& btnInfoA, const String& btnInfoB);
-    void ShowInfoScreen(const String& info, const String& btnInfoA, const String& btnInfoB);
-    void ShowErrorScreen(const String& error, const String& btnInfoA, const String& btnInfoB);
-    void ShowFontTestScreen();
-    bool IsBusy();
     void DeInit();
+
+    virtual void ShowScheduleScreen(const time_t localNow, const std::vector<ScheduleItem>& items) override;
+    virtual void ShowAdminMenuScreen(const String& btnInfoA, const String& btnInfoB) override;
+    virtual void ShowSettingsScreen(const String& wifiSsid, const String& wifiKey, const String& btnInfoA, const String& btnInfoB) override;
+    virtual void ShowAuthorizationScreen(const String& message, const String& uri, const String& code, const String& btnInfoA, const String& btnInfoB) override;
+    virtual void ShowUnknownCardScreen(const String& header, const String& code, const String& btnInfoA, const String& btnInfoB) override;
+    virtual void ShowInfoScreen(const String& info, const String& btnInfoA, const String& btnInfoB) override;
+    virtual void ShowErrorScreen(const String& error, const String& btnInfoA, const String& btnInfoB) override;
+    virtual void ShowFontTestScreen() override;
+    virtual bool IsBusy() override;
 
 private:
     void RenderFirmwareVersion();
@@ -34,7 +34,7 @@ private:
     void Present(const bool fastMode);
 
 private:
-    AppContext& _ctx;   
+    IAppContext& _ctx;   
     std::vector<uint8_t> _frameBuffer;
     Paint _paint;
     Epd _epd;

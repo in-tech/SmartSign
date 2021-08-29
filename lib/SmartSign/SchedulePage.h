@@ -14,7 +14,7 @@ struct ScheduleItem
 class SchedulePage : public NavPage
 {
 public:
-    SchedulePage(AppContext& ctx);
+    SchedulePage(IAppContext& ctx);
     ~SchedulePage();
 
     virtual void Update(const InputState& inputState) override;

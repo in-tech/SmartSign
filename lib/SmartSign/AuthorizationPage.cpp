@@ -1,7 +1,7 @@
 #include "AuthorizationPage.h"
-#include "AppContext.h"
+#include "IAppContext.h"
 
-AuthorizationPage::AuthorizationPage(AppContext& ctx) :
+AuthorizationPage::AuthorizationPage(IAppContext& ctx) :
     NavPage(ctx), _lastProgress(AUTH_PROG_UNKNOWN)
 {
     _ctx.GetDisplay().ShowInfoScreen("Please wait ...", "", "");

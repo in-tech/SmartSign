@@ -1,38 +1,22 @@
 #pragma once
-#include <Arduino.h>
+#include "IInputManager.h"
 #include "CardReader.h"
 
-struct InputState
-{
-    bool PressedButtonA;
-    bool PressedButtonB;
-    bool SmartCardPresent;
-    String SmartCardId;
+class IAppContext;
 
-    void Reset()
-    {
-        PressedButtonA = false;
-        PressedButtonB = false;
-        SmartCardPresent = false;
-        SmartCardId.clear();
-    }
-};
-
-class AppContext;
-
-class InputManager
+class InputManager : public IInputManager
 {
 public:
-    InputManager(AppContext& ctx);
+    InputManager(IAppContext& ctx);
     ~InputManager();
 
     void Init();
     void Update();
 
-    InputState& State();
+    virtual InputState& State() override;
 
 private:
-    AppContext& _ctx;
+    IAppContext& _ctx;
     CardReader _cardReader;
     InputState _state;
     bool _resetState;

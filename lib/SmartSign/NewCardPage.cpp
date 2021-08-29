@@ -1,7 +1,7 @@
 #include "NewCardPage.h"
-#include "AppContext.h"
+#include "IAppContext.h"
 
-NewCardPage::NewCardPage(AppContext& ctx) :
+NewCardPage::NewCardPage(IAppContext& ctx) :
     NavPage(ctx)
 {
 }

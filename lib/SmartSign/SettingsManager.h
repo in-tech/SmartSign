@@ -1,12 +1,12 @@
 #pragma once
 #include "GlobalSettings.h"
 
-class AppContext;
+class IAppContext;
 
 class SettingsManager
 {
 public:
-    SettingsManager(AppContext& ctx);
+    SettingsManager(IAppContext& ctx);
     ~SettingsManager();
 
     void Init();
@@ -15,7 +15,7 @@ public:
     GlobalSettings& Settings();
 
 private:
-    AppContext& _ctx;
+    IAppContext& _ctx;
     SerialCLI _serialCli;
     GlobalSettings _settings;
 };

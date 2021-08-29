@@ -1,5 +1,6 @@
 #include "InputManager.h"
-#include "AppContext.h"
+#include "IAppContext.h"
+#include "Log.h"
 
 volatile unsigned long lastButtonPressed = -1;
 volatile bool pressedButtonA = false;
@@ -24,7 +25,7 @@ void IRAM_ATTR ButtonB_ISR()
     }   
 }
 
-InputManager::InputManager(AppContext& ctx) :
+InputManager::InputManager(IAppContext& ctx) :
     _ctx(ctx), _resetState(true)
 {
     _state.Reset();

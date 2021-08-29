@@ -1,8 +1,8 @@
 #include "SettingsPage.h"
-#include "AppContext.h"
+#include "IAppContext.h"
 #include "CryptoUtils.h"
 
-SettingsPage::SettingsPage(AppContext& ctx) :
+SettingsPage::SettingsPage(IAppContext& ctx) :
     NavPage(ctx)
 {
     const String ssid = String("SmartSign-") + CryptoUtils::RandomString("ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890", 4);

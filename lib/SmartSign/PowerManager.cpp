@@ -1,5 +1,6 @@
 #include "PowerManager.h"
-#include "AppContext.h"
+#include "IAppContext.h"
+#include "Log.h"
 #include <esp_sleep.h>
 
 #define uS_TO_S_FACTOR 1000000ULL
@@ -9,7 +10,7 @@ RTC_DATA_ATTR bool rtc_batteryWasLow = false;
 RTC_DATA_ATTR bool rtc_lastSleepDurationFailed = false;
 RTC_DATA_ATTR time_t rtc_utcWakeupTime = 0;
 
-PowerManager::PowerManager(AppContext& ctx) :
+PowerManager::PowerManager(IAppContext& ctx) :
     _ctx(ctx),
     _wakeupReason(WAKEUP_REASON_UNKNWON)
 {

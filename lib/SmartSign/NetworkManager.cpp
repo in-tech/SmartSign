@@ -1,9 +1,10 @@
 #include "NetworkManager.h"
-#include "AppContext.h"
+#include "IAppContext.h"
+#include "Log.h"
 
 WiFiUDP ntpUDP;
 
-NetworkManager::NetworkManager(AppContext &ctx) : _ctx(ctx),
+NetworkManager::NetworkManager(IAppContext &ctx) : _ctx(ctx),
                                                   _ntpClient(ntpUDP),
                                                   _timeSynchronized(false)
 {

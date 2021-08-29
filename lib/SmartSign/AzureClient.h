@@ -1,62 +1,24 @@
 #pragma once
-#include <Arduino.h>
-#include <HTTPClient.h>
-#include <ArduinoJson.h>
+#include <IAzureClient.h>
 #include <map>
 
-class AppContext;
+class IAppContext;
 
-struct Response
-{
-    t_http_codes HttpCode;
-    String Content;
-
-    Response(const t_http_codes httpCode, const String& content) :
-        HttpCode(httpCode),
-        Content(content)
-    {        
-    }
-};
-
-struct AuthorizationRequestInfo
-{
-    bool Success;
-    String Error;
-    String UserCode;
-    String DeviceCode;
-    String Message;
-    String Uri;
-};
-
-struct GetScheduleResponse
-{
-    bool Success;
-    String Error;
-};
-
-enum AuthorizationProgress
-{
-    AUTH_PROG_UNKNOWN = 0,
-    AUTH_PROG_PENDING,
-    AUTH_PROG_COMPLETED,
-    AUTH_PROG_FAILED_OR_CANCELED
-};
-
-class AzureClient
+class AzureClient : public IAzureClient
 {
 public:
-    AzureClient(AppContext& ctx);
-    ~AzureClient();
+    AzureClient(IAppContext& ctx);
+    virtual ~AzureClient() override;
 
     void Init();
     void Update();
 
-    AuthorizationProgress GetAuthorizationProgress();
-    String GetAuthorizationError();
-    AuthorizationRequestInfo BeginAuthorization();
-    void CancelAuthorization(const String& reason);
+    virtual AuthorizationProgress GetAuthorizationProgress() override;
+    virtual String GetAuthorizationError() override;
+    virtual AuthorizationRequestInfo BeginAuthorization() override;
+    virtual void CancelAuthorization(const String& reason) override;
 
-    GetScheduleResponse GetSchedule(DynamicJsonDocument& json);
+    virtual GetScheduleResponse GetSchedule(DynamicJsonDocument& json) override;
 
 private:
     Response LoginRequest(const String& endpoint, const std::map<String, String>& bodyData);
@@ -64,7 +26,7 @@ private:
     String GetErrorMessage(const Response& response);
 
 private:
-    AppContext& _ctx;
+    IAppContext& _ctx;
     WiFiClientSecure _client;
     AuthorizationProgress _authProg;
     String _lastAuthError;

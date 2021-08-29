@@ -1,7 +1,7 @@
 #include "NavPage.h"
-#include "AppContext.h"
+#include "IAppContext.h"
 
-NavPage::NavPage(AppContext& ctx) :
+NavPage::NavPage(IAppContext& ctx) :
     _ctx(ctx)
 {
 }

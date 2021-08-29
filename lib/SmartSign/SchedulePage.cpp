@@ -1,5 +1,5 @@
 #include "SchedulePage.h"
-#include "AppContext.h"
+#include "IAppContext.h"
 
 //#define USE_MOCK_DATA
 //#define SHOW_FONT_TEST_SCREEN
@@ -8,7 +8,7 @@
 RTC_DATA_ATTR int rtc_mock_minute = 0;
 #endif
 
-SchedulePage::SchedulePage(AppContext& ctx) :
+SchedulePage::SchedulePage(IAppContext& ctx) :
     NavPage(ctx),
     _scheduleRequested(false),
     _maxUtcWakeTime(0)

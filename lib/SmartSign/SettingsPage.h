@@ -4,7 +4,7 @@
 class SettingsPage : public NavPage
 {
 public:
-    SettingsPage(AppContext& ctx);
+    SettingsPage(IAppContext& ctx);
     ~SettingsPage();
 
     virtual void Update(const InputState& inputState) override;

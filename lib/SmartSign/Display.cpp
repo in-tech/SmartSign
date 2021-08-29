@@ -1,10 +1,11 @@
 #include "Display.h"
-#include "AppContext.h"
+#include "IAppContext.h"
 #include <images.h>
 #include <fonts.h>
 #include "TimeUtils.h"
 #include "CryptoUtils.h"
 #include <qrcode.h>
+#include "Log.h"
 
 extern sIMAGE IMG_background;
 extern sIMAGE IMG_booked;
@@ -16,7 +17,7 @@ extern sIMAGE IMG_cwa;
 #define MAX_HASH_SIZE 65
 RTC_DATA_ATTR char rtc_lastHash[MAX_HASH_SIZE] = "";
 
-Display::Display(AppContext& ctx) :
+Display::Display(IAppContext& ctx) :
     _ctx(ctx),
     _frameBuffer(EPD_WIDTH * EPD_HEIGHT / 4),
     _paint(_frameBuffer.data(), EPD_WIDTH, EPD_HEIGHT, TWO_BITS),
@@ -33,6 +34,15 @@ void Display::Init()
     SPI.begin();
     pinMode(EPD_CS_PIN, OUTPUT);
     digitalWrite(EPD_CS_PIN, HIGH);
+}
+
+void Display::DeInit()
+{
+    if (_active)
+    {
+        _epd.WaitUntilIdle();
+        _epd.Sleep();
+    }
 }
 
 void Display::ShowScheduleScreen(const time_t localNow, const std::vector<ScheduleItem>& items)
@@ -429,13 +439,4 @@ void Display::Present(const bool fastMode)
 bool Display::IsBusy()
 {
     return _active && _epd.IsBusy();
-}
-
-void Display::DeInit()
-{
-    if (_active)
-    {
-        _epd.WaitUntilIdle();
-        _epd.Sleep();
-    }
 }

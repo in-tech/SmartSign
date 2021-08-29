@@ -4,7 +4,7 @@
 class NewCardPage : public NavPage
 {
 public:
-    NewCardPage(AppContext& ctx);
+    NewCardPage(IAppContext& ctx);
     ~NewCardPage();
 
     virtual void Update(const InputState& inputState) override;

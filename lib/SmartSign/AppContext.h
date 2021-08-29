@@ -1,5 +1,5 @@
 #pragma once
-#include "Version.h"
+#include "IAppContext.h"
 #include "SettingsManager.h"
 #include "NetworkManager.h"
 #include "AzureClient.h"
@@ -9,31 +9,26 @@
 #include "Navigator.h"
 #include "Log.h"
 
-// permission bits
-#define PERM_AUTHORIZATION    1
-#define PERM_WRITE_SETTINGS   2
-#define PERM_ADMINISTRATION   (PERM_AUTHORIZATION | PERM_WRITE_SETTINGS)
-
-class AppContext
+class AppContext : public IAppContext
 {
 public:
     AppContext();
-    ~AppContext();
+    virtual ~AppContext() override;
 
-    uint8_t GetPermissions(const String& cardId);
-    bool HasPermissions(const uint8_t permissionBits);
+    virtual uint8_t GetPermissions(const String& cardId) override;
+    virtual bool HasPermissions(const uint8_t permissionBits) override;
 
-    GlobalSettings& Settings();
-    NetworkManager& GetNetworkMgr();
-    AzureClient& GetAzureClient();
-    PowerManager& GetPowerMgr();
-    InputManager& GetInputMgr();
-    Display& GetDisplay();
-    Navigator& GetNavigator();
+    virtual GlobalSettings& Settings() override;
+    virtual INetworkManager& GetNetworkMgr() override;
+    virtual IAzureClient& GetAzureClient() override;
+    virtual IPowerManager& GetPowerMgr() override;
+    virtual IInputManager& GetInputMgr() override;
+    virtual IDisplay& GetDisplay() override;
+    virtual INavigator& GetNavigator() override;
 
-    void Init();
-    void Update();
-    void DeInit();
+    virtual void Init() override;
+    virtual void Update() override;
+    virtual void DeInit() override;
 
 private:
     SettingsManager _settingsMgr;

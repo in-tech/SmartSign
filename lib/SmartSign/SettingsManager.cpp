@@ -1,7 +1,7 @@
 #include "SettingsManager.h"
-#include "AppContext.h"
+#include "IAppContext.h"
 
-SettingsManager::SettingsManager(AppContext& ctx) :
+SettingsManager::SettingsManager(IAppContext& ctx) :
     _ctx(ctx)
 {
 }

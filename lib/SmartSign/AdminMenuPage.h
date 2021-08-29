@@ -4,7 +4,7 @@
 class AdminMenuPage : public NavPage
 {
 public:
-    AdminMenuPage(AppContext& ctx);
+    AdminMenuPage(IAppContext& ctx);
     ~AdminMenuPage();
 
     virtual void Update(const InputState& inputState) override;

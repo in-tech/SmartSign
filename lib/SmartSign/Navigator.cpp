@@ -1,12 +1,13 @@
 #include "Navigator.h"
-#include "AppContext.h"
+#include "IAppContext.h"
 #include "SchedulePage.h"
 #include "NewCardPage.h"
 #include "AdminMenuPage.h"
 #include "SettingsPage.h"
 #include "AuthorizationPage.h"
+#include "Log.h"
 
-Navigator::Navigator(AppContext& ctx) :
+Navigator::Navigator(IAppContext& ctx) :
     _ctx(ctx),
     _currentPage(NAV_PAGE_NONE)
 {

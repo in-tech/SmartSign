@@ -1,11 +1,11 @@
 #pragma once
 #include "NavPage.h"
-#include "AzureClient.h"
+#include "IAzureClient.h"
 
 class AuthorizationPage : public NavPage
 {
 public:
-    AuthorizationPage(AppContext& ctx);
+    AuthorizationPage(IAppContext& ctx);
     ~AuthorizationPage();
 
     virtual void Update(const InputState& inputState) override;

@@ -46,32 +46,32 @@ GlobalSettings& AppContext::Settings()
     return _settingsMgr.Settings();
 }
 
-NetworkManager& AppContext::GetNetworkMgr()
+INetworkManager& AppContext::GetNetworkMgr()
 {
     return _networkMgr;
 }
 
-AzureClient& AppContext::GetAzureClient()
+IAzureClient& AppContext::GetAzureClient()
 {
     return _azureClient;
 }
 
-PowerManager& AppContext::GetPowerMgr()
+IPowerManager& AppContext::GetPowerMgr()
 {
     return _powerMgr;
 }
 
-InputManager& AppContext::GetInputMgr()
+IInputManager& AppContext::GetInputMgr()
 {
     return _inputMgr;
 }
 
-Display& AppContext::GetDisplay()
+IDisplay& AppContext::GetDisplay()
 {
     return _display;
 }
 
-Navigator& AppContext::GetNavigator()
+INavigator& AppContext::GetNavigator()
 {
     return _navigator;
 }

@@ -1,5 +1,5 @@
 #include "AzureClient.h"
-#include "AppContext.h"
+#include "IAppContext.h"
 #include "TimeUtils.h"
 #include "AzureToken.hpp"
 #include "Certificates.h"
@@ -33,7 +33,7 @@ String LoadAccessToken(const time_t utcNow)
     return "";
 }
 
-AzureClient::AzureClient(AppContext &ctx) : _ctx(ctx), _authProg(AUTH_PROG_UNKNOWN)
+AzureClient::AzureClient(IAppContext &ctx) : _ctx(ctx), _authProg(AUTH_PROG_UNKNOWN)
 {
 }
 

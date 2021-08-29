@@ -1,38 +1,38 @@
 #pragma once
 #include <Esp32Foundation.h>
 #include <NTPClient.h>
-#include <TimeLib.h>
+#include "INetworkManager.h"
 
-class AppContext;
+class IAppContext;
 
-class NetworkManager
+class NetworkManager : public INetworkManager
 {
 public:
-    NetworkManager(AppContext& ctx);
+    NetworkManager(IAppContext& ctx);
     ~NetworkManager();
 
     void Init();
     void DeInit();
     void Update();
 
-    bool IsPending();
+    virtual bool IsPending() override;
 
-    bool WifiIsConfigured();
-    bool WifiIsConnected();
+    virtual bool WifiIsConfigured() override;
+    virtual bool WifiIsConnected() override;
 
-    bool TimeIsSynchronized();
-    bool TimeIsValid();
-    bool TryGetUtcTime(time_t& time);
+    virtual bool TimeIsSynchronized() override;
+    virtual bool TimeIsValid() override;
+    virtual bool TryGetUtcTime(time_t& time) override;
 
-    void StartConfigurator(const String& ssid, const String& key);
-    void StopConfigurator();
-    bool ConfiguratorIsRunning();
+    virtual void StartConfigurator(const String& ssid, const String& key) override;
+    virtual void StopConfigurator() override;
+    virtual bool ConfiguratorIsRunning() override;
 
 private:
     void SyncTime();
 
 private:
-    AppContext& _ctx;
+    IAppContext& _ctx;
     String _lastWifiSsid;
     esp32::foundation::WiFiSmartClient _wifiClient;
     esp32::foundation::HtmlConfigurator _configurator;

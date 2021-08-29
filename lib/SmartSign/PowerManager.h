@@ -1,41 +1,33 @@
 #pragma once
-#include <Arduino.h>
+#include <IPowerManager.h>
 #include "Config.h"
 
-enum WakeupReason
-{
-    WAKEUP_REASON_UNKNWON = 0,
-    WAKEUP_REASON_TIMER,
-    WAKEUP_REASON_CARD,
-    WAKEUP_REASON_BUTTONA,
-    WAKEUP_REASON_BUTTONB
-};
+class IAppContext;
 
-class AppContext;
-
-class PowerManager
+class PowerManager : public IPowerManager
 {
 public:
-    PowerManager(AppContext& ctx);
-    ~PowerManager();
+    PowerManager(IAppContext& ctx);
+    virtual ~PowerManager() override;
 
     void Init();
     void Update();
-    void EnterDeepSleep(const time_t maxUtcWakeTime = 0);
 
-    bool TryGetUtcWeakupTime(time_t& time);
+    virtual void EnterDeepSleep(const time_t maxUtcWakeTime = 0) override;
 
-    WakeupReason GetWakeupReason() const;
-    float GetBatteryVoltage();
-    bool BatteryIsLow();
+    virtual bool TryGetUtcWeakupTime(time_t& time) override;
 
-    void SetStatusLED(const bool on);
+    virtual WakeupReason GetWakeupReason() const override;
+    virtual float GetBatteryVoltage() override;
+    virtual bool BatteryIsLow() override;
+
+    virtual void SetStatusLED(const bool on) override;
 
 private:
     int GetSleepDuration(const time_t maxUtcWakeTime);
     bool IsBusinessTime(time_t utcNow);
 
 private:
-    AppContext& _ctx;
+    IAppContext& _ctx;
     WakeupReason _wakeupReason;
 };

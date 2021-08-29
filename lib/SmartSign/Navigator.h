@@ -1,22 +1,22 @@
 #pragma once
 #include <memory>
-#include "NavPage.h"
+#include "INavigator.h"
 
-class AppContext;
+class IAppContext;
 
-class Navigator
+class Navigator : public INavigator
 {
 public:
-    Navigator(AppContext& ctx);
-    ~Navigator();
+    Navigator(IAppContext& ctx);
+    virtual ~Navigator() override;
 
     void Init();
     void Update();
 
-    void GoTo(const NavPages page);
+    virtual void GoTo(const NavPages page) override;
 
 private:
-    AppContext& _ctx;
+    IAppContext& _ctx;
     NavPages _currentPage;
     std::unique_ptr<NavPage> _currentPagePtr;
 };

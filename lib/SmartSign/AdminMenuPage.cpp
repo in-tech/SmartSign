@@ -1,7 +1,7 @@
 #include "AdminMenuPage.h"
-#include "AppContext.h"
+#include "IAppContext.h"
 
-AdminMenuPage::AdminMenuPage(AppContext& ctx) :
+AdminMenuPage::AdminMenuPage(IAppContext& ctx) :
     NavPage(ctx)
 {
 }
