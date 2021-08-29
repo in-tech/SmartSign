@@ -1,4 +1,5 @@
 #include "AsciiCompressorTests.hpp"
+#include "PowerTests.hpp"
 #include "InputTests.hpp"
 #include "LedTests.hpp"
 #include "DisplayTests.hpp"
@@ -10,6 +11,8 @@ void setup()
     UNITY_BEGIN();
 
     RUN_TEST(ascii_compressor_tests::test_compression_decompression);
+
+    RUN_TEST(power_tests::test_battery_voltage);
 
     RUN_TEST(input_tests::test_button_A);
     RUN_TEST(input_tests::test_button_B);
