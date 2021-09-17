@@ -1,7 +1,7 @@
 # SmartSign
 A battery powered e-Paper sign for conference rooms.
 
-![](docs/smartsign.jpg)
+![](docs/smartsign_rendering.jpg)
 
 ## Device-Frame
 The shell components are optimized for FDM printing in PLA with 0.2 mm layer height.
