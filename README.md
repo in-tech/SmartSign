@@ -23,7 +23,8 @@ The hardware is based on of the shelf components and requires no custom PCB desi
 * 2x tactile switch buttons (12x12x7.3mm)
 * Resistors: 1x 330 Ohm, 3x 22K-Ohm, 1x 32K-Ohm, 2x 100K-Ohm
 
-How the components are interconnected, is documented here: [SmartSign Schematic.pdf](docs/SmartSign%20Schematic.pdf)
+How the components are interconnected, is documented here: [smartsign_schematic.pdf](docs/smartsign_schematic.pdf)
+![](docs/smartsign_schematic.png)
 
 ## Firmware
 The firmware is written in C++ and based on PlatformIO. Before you can build the project, you have to create a settings file by renaming the file [`.\lib\SmartSign\GlobalSettings.h.default`](lib/SmartSign/GlobalSettings.h.default) to `.\lib\SmartSign\GlobalSettings.h`. 
