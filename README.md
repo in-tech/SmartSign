@@ -22,6 +22,8 @@ The hardware is based on of the shelf components and requires no custom PCB desi
 * 3mm red LED with 47µF Capacitor and N-Channel FET to keep LED state when ESP is in deep sleep
 * 2x tactile switch buttons (12x12x7.3mm)
 * Resistors: 1x 330 Ohm, 3x 22K-Ohm, 1x 32K-Ohm, 2x 100K-Ohm
+  
+![](docs/smartsign_electronics.jpg)
 
 How the components are interconnected, is documented here: [smartsign_schematic.pdf](docs/smartsign_schematic.pdf)
 ![](docs/smartsign_schematic.png)
