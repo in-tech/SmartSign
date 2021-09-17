@@ -28,5 +28,5 @@ How the components are interconnected, is documented here: [SmartSign Schematic.
 ## Firmware
 The firmware is written in C++ and based on PlatformIO. Before you can build the project, you have to create a settings file by renaming the file [`.\lib\SmartSign\GlobalSettings.h.default`](lib/SmartSign/GlobalSettings.h.default) to `.\lib\SmartSign\GlobalSettings.h`. 
 
-In `GlobalSettings.h` change the `ADMIN_CARD_ID` value to match the id of the your smartcard you want to use to enter the administration mode. All other parameters in this file are default values and can be changed during runtime in the setup mode via web-interface.
+In `GlobalSettings.h` change the `ADMIN_CARD_ID` value to match the id of the smartcard you want to use to enter the administration mode. All other parameters in this file are default values and can be changed during runtime in the setup mode via web-interface.
 
