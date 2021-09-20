@@ -1,7 +1,7 @@
 # SmartSign
 A battery powered e-Paper sign for conference rooms.
 
-![](docs/smartsign_rendering.jpg)
+![](docs/images/smartsign_rendering.jpg)
 
 ## Device-Frame
 The shell components are optimized for FDM printing in PLA with 0.2 mm layer height.
@@ -23,10 +23,11 @@ The hardware is based on of the shelf components and requires no custom PCB desi
 * 2x tactile switch buttons (12x12x7.3mm)
 * Resistors: 1x 330 Ohm, 3x 22K-Ohm, 1x 32K-Ohm, 2x 100K-Ohm
   
-![](docs/smartsign_electronics.jpg)
+![](docs/images/smartsign_electronics.jpg)
 
 How the components are interconnected, is documented here: [smartsign_schematic.pdf](docs/smartsign_schematic.pdf)
-![](docs/smartsign_schematic.png)
+
+![](docs/images/smartsign_schematic.png)
 
 ## Firmware
 The firmware is written in C++ and based on PlatformIO. Before you can build the project, you have to create a settings file by renaming the file [`.\lib\SmartSign\GlobalSettings.h.default`](lib/SmartSign/GlobalSettings.h.default) to `.\lib\SmartSign\GlobalSettings.h`. 
