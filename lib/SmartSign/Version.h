@@ -1,1 +1,1 @@
-#define SMART_SIGN_FW_VERSION "v1.0"
+#define SMART_SIGN_FW_VERSION "v1.1"
