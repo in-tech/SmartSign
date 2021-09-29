@@ -12,7 +12,7 @@ STL-files:
 * [Frame.stl](stl_files/Frame.stl)
 * [Inlay.stl](stl_files/Inlay.stl)
 
-## Elektronics
+## Electronics
 The hardware is based on of the shelf components and requires no custom PCB designs:
 * DFRobot FireBeetle ESP32 IOT Microcontroller
 * Waveshare 7.5inch e-Paper B V1 (640x384)
